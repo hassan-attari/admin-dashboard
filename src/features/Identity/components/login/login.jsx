@@ -7,7 +7,7 @@ const Login = () => {
         <img src={logo} style={{ height: "100px" }} />
         <h1 className="h2">پلتفرم آموزش آنلاین</h1>
         <p className="lead">
-          جهت ورود لازم است از طریق ایمیل و رمز عبور خود اقدام کنید
+          جهت ورود لازم است از طریق موبایل و رمز عبور خود اقدام کنید
         </p>
         <p className="lead">
           قبلا ثبت نام نکرده اید؟
@@ -20,8 +20,8 @@ const Login = () => {
           <div className="m-sm-4">
             <form>
               <div className="mb-3">
-                <label className="form-label">ایمیل</label>
-                <input className="form-control form-control-lg" type="email" />
+                <label className="form-label">موبایل</label>
+                <input className="form-control form-control-lg" />
               </div>
               <div className="mb-3">
                 <label className="form-label">رمز عبور</label>

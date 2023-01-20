@@ -30,56 +30,25 @@ const Register = () => {
           <div className="m-sm-4">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
-                <label className="form-label">نام</label>
+                <label className="form-label">موبایل</label>
                 <input
-                  {...register("firstName", { required: "نام الزامی است" })}
-                  className={`form-control form-control-lg ${
-                    errors.firstName && "is-invalid"
-                  }`}
-                  type="text"
-                />
-                {errors.firstName && (
-                  <p className="text-danger small fw-bolder mt-1">
-                    {errors.firstName?.message}
-                  </p>
-                )}
-              </div>
-              <div className="mb-3">
-                <label className="form-label">نام خانوادگی</label>
-                <input
-                  {...register("lastName", {
-                    required: "نام خانوداگی الزامی است",
+                  {...register("mobile", {
+                    required: "موبایل الزامی است",
+                    minLength: 11,
+                    maxLength: 11
                   })}
                   className={`form-control form-control-lg ${
-                    errors.lastName && "is-invalid"
-                  }`}
-                  type="text"
-                />
-                {errors.lastName && (
-                  <p className="text-danger small fw-bolder mt-1">
-                    {errors.lastName?.message}
-                  </p>
-                )}
-              </div>
-              <div className="mb-3">
-                <label className="form-label">ایمیل</label>
-                <input
-                  {...register("email", {
-                    required: "ایمیل الزامی است",
-                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  })}
-                  className={`form-control form-control-lg ${
-                    errors.email && "is-invalid"
+                    errors.mobile && "is-invalid"
                   }`}
                 />
-                {errors.email && errors.email.type === "required" && (
+                {errors.mobile && errors.mobile.type === "required" && (
                   <p className="text-danger small fw-bolder mt-1">
-                    {errors.email?.message}
+                    {errors.mobile?.message}
                   </p>
                 )}
-                {errors.email && errors.email.type === "pattern" && (
+                {errors.mobile && (errors.mobile.type === "minLength" || errors.mobile.type === 'maxLength') && (
                   <p className="text-danger small fw-bolder mt-1">
-                    فرمت ایمیل صحیح نیست
+                  موبایل باید 11 رقم باشد
                   </p>
                 )}
               </div>
