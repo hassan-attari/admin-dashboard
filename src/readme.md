@@ -1,2 +1,4 @@
-1- npm install react-hook-form
-2- starting on validation in register form
+1- introduction axios hooks
+2- npm install axios axios-hooks
+3- axios-service
+4- register.jsx
