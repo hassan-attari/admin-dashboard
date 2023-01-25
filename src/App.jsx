@@ -1,4 +1,5 @@
 import React from 'react';
+import './core/i18n';
 import { RouterProvider } from 'react-router-dom';
 import Login from './features/Identity/components/login/login';
 import Register from './features/Identity/components/register/register';

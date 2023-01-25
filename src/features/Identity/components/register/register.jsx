@@ -1,12 +1,14 @@
 import logo from "@assets/images/logo.svg";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useAxios } from "../../../../core/axios-service";
 
 const Register = () => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
-  const [{ loading, response }, execute] = useAxios(
+  const [{ loading, error: apiError, response }, execute] = useAxios(
     {
       url: "/Users",
       method: "post",
@@ -129,17 +131,24 @@ const Register = () => {
                   ></div>
                 ) : (
                   <button type="submit" className="btn btn-lg btn-primary">
-                    ثبت نام کنید
+                   {t('Register')}
                   </button>
                 )}
               </div>
-            </form>
-          </div>
-          {response?.status === 200 && (
-            <div className="alert alert-success text-success p-2">
+              {response?.status === 200 && (
+            <div className="alert alert-success text-success p-2 mt-3">
               عملیات با موفقیت انجام شد. به صفحه ورود منتقل می شوید
             </div>
           )}
+          {
+            apiError && (
+              <div className="alert alert-danger text-danger p-2 mt-3">
+                {apiError.response?.data.map(error => t(error.code))}
+              </div>
+            )
+          }
+            </form>
+          </div>
         </div>
       </div>
     </>
