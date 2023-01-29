@@ -1,26 +1,9 @@
 import logo from "@assets/images/logo.svg";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-<<<<<<< HEAD
-import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
-import { useAxios } from "../../../../core/axios-service";
-
-const Register = () => {
-  const {t} = useTranslation();
-  const navigate = useNavigate();
-  const [{ loading, error: apiError, response }, execute] = useAxios(
-    {
-      url: "/Users",
-      method: "post",
-    },
-    { manual: true }
-  );
-=======
 import { Link, redirect, useActionData, useNavigate, useNavigation, useRouteError, useSubmit } from "react-router-dom";
 import { httpService } from "../../../../core/http-service";
 const Register = () => {
->>>>>>> 5-register-api
   const {
     register,
     handleSubmit,
@@ -138,28 +121,6 @@ const Register = () => {
                   )}
               </div>
               <div className="text-center mt-3">
-<<<<<<< HEAD
-                {loading ? (
-                  <div
-                    className="spinner-border text-primary me-2"
-                    role="status"
-                  ></div>
-                ) : (
-                  <button type="submit" className="btn btn-lg btn-primary">
-                   {t('Register')}
-                  </button>
-                )}
-              </div>
-              {response?.status === 200 && (
-            <div className="alert alert-success text-success p-2 mt-3">
-              عملیات با موفقیت انجام شد. به صفحه ورود منتقل می شوید
-            </div>
-          )}
-          {
-            apiError && (
-              <div className="alert alert-danger text-danger p-2 mt-3">
-                {apiError.response?.data.map(error => t(error.code))}
-=======
                 <button type="submit" disabled={isSubmitting} className="btn btn-lg btn-primary">
                   {isSubmitting ? 'در حال انجام عملیات' : 'ثبت نام کنید'}
                 </button>
@@ -175,7 +136,6 @@ const Register = () => {
             isSuccessOperation && (
               <div className="alert alert-success text-success p-2 mt-3">
                 عملیات با موفقیت انجام شد. به صفحه ورود منتقل می شوید
->>>>>>> 5-register-api
               </div>
             )
           }
