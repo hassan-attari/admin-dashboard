@@ -3,6 +3,7 @@ import App from "./App";
 import Login from "./features/Identity/components/login/login";
 import Register from "./features/Identity/components/register/register";
 import IdentityLayout from "./layouts/identity-layout";
+import { registerAction } from "./features/Identity/components/register/register";
 
 const router = createBrowserRouter([
     {
@@ -14,7 +15,9 @@ const router = createBrowserRouter([
             },
             {
                 path: 'register',
-                element: <Register/>
+                element: <Register/>,
+                action: registerAction,
+                errorElement: <Register/>
             },
         ]
     }
