@@ -1,37 +1,23 @@
 import logo from "@assets/images/logo.svg";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useAxios } from "../../../../core/axios-service";
-
+import { Link, redirect, useNavigation, useRouteError, useSubmit } from "react-router-dom";
+import { httpService } from "../../../../core/http-service";
 const Register = () => {
-  const navigate = useNavigate();
-  const [{ loading, response }, execute] = useAxios(
-    {
-      url: "/Users",
-      method: "post",
-    },
-    { manual: true }
-  );
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+  const submitForm = useSubmit();
+  const onSubmit = (data) => {
+    const {confirmPassword, ...userData} = data;
+    submitForm(userData, {method: 'post'});
+  } 
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state !== 'idle';
 
-  useEffect(() => {
-    if (response?.status === 200) {
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-    }
-  }, [response?.status]);
-
-  const onSubmit = (formData) => {
-    const {confirmPassword, ...userData} = formData;
-    execute({ data: userData });
-  };
+  const routeErrors = useRouteError();
   return (
     <>
       <div className="text-center mt-4">
@@ -58,7 +44,7 @@ const Register = () => {
                   {...register("mobile", {
                     required: "موبایل الزامی است",
                     minLength: 11,
-                    maxLength: 11,
+                    maxLength: 11
                   })}
                   className={`form-control form-control-lg ${
                     errors.mobile && "is-invalid"
@@ -69,13 +55,11 @@ const Register = () => {
                     {errors.mobile?.message}
                   </p>
                 )}
-                {errors.mobile &&
-                  (errors.mobile.type === "minLength" ||
-                    errors.mobile.type === "maxLength") && (
-                    <p className="text-danger small fw-bolder mt-1">
-                      موبایل باید 11 رقم باشد
-                    </p>
-                  )}
+                {errors.mobile && (errors.mobile.type === "minLength" || errors.mobile.type === 'maxLength') && (
+                  <p className="text-danger small fw-bolder mt-1">
+                  موبایل باید 11 رقم باشد
+                  </p>
+                )}
               </div>
               <div className="mb-3">
                 <label className="form-label">رمز عبور</label>
@@ -122,28 +106,25 @@ const Register = () => {
                   )}
               </div>
               <div className="text-center mt-3">
-                {loading ? (
-                  <div
-                    className="spinner-border text-primary me-2"
-                    role="status"
-                  ></div>
-                ) : (
-                  <button type="submit" className="btn btn-lg btn-primary">
-                    ثبت نام کنید
-                  </button>
-                )}
+                <button type="submit" disabled={isSubmitting} className="btn btn-lg btn-primary">
+                  {isSubmitting ? 'در حال انجام عملیات' : 'ثبت نام کنید'}
+                </button>
               </div>
             </form>
           </div>
-          {response?.status === 200 && (
-            <div className="alert alert-success text-success p-2">
-              عملیات با موفقیت انجام شد. به صفحه ورود منتقل می شوید
-            </div>
-          )}
         </div>
       </div>
     </>
   );
 };
 
+export async function registerAction({request}) {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  await httpService.post('/Users', data);
+  return redirect('/login');
+}
+
 export default Register;
+
+// create an empty arrow function
