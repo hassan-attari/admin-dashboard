@@ -1,6 +1,7 @@
 import logo from "@assets/images/logo.svg";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link, redirect, useActionData, useNavigate, useNavigation, useRouteError, useSubmit } from "react-router-dom";
 import { httpService } from "../../../../core/http-service";
 const Register = () => {
@@ -10,6 +11,7 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const { t, i18n } = useTranslation();
 
   const submitForm = useSubmit();
 
@@ -122,13 +124,14 @@ const Register = () => {
               </div>
               <div className="text-center mt-3">
                 <button type="submit" disabled={isSubmitting} className="btn btn-lg btn-primary">
-                  {isSubmitting ? 'در حال انجام عملیات' : 'ثبت نام کنید'}
+                  {t('register.register')}
+                  {/* {isSubmitting ? 'در حال انجام عملیات' : 'ثبت نام کنید'} */}
                 </button>
               </div>
               {
             routeErrors && (
               <div className="alert alert-danger text-danger p-2 mt-3">
-                {routeErrors.response?.data.map(error => <p className="mb-0">{error.description}</p>)}
+                {routeErrors.response?.data.map(error => <p className="mb-0">{t(error.code)}</p>)}
               </div>
             )
           }
