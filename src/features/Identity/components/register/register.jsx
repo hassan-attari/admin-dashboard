@@ -1,6 +1,7 @@
 import logo from "@assets/images/logo.svg";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, redirect, useNavigation, useRouteError, useSubmit } from "react-router-dom";
+import { Link, redirect, useActionData, useNavigate, useNavigation, useRouteError, useSubmit } from "react-router-dom";
 import { httpService } from "../../../../core/http-service";
 const Register = () => {
   const {
@@ -9,7 +10,9 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+
   const submitForm = useSubmit();
+
   const onSubmit = (data) => {
     const {confirmPassword, ...userData} = data;
     submitForm(userData, {method: 'post'});
@@ -18,6 +21,18 @@ const Register = () => {
   const isSubmitting = navigation.state !== 'idle';
 
   const routeErrors = useRouteError();
+  const isSuccessOperation = useActionData();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccessOperation) {
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
+    }
+  }, [isSuccessOperation])
+
   return (
     <>
       <div className="text-center mt-4">
@@ -110,6 +125,20 @@ const Register = () => {
                   {isSubmitting ? 'در حال انجام عملیات' : 'ثبت نام کنید'}
                 </button>
               </div>
+              {
+            routeErrors && (
+              <div className="alert alert-danger text-danger p-2 mt-3">
+                {routeErrors.response?.data.map(error => <p className="mb-0">{error.description}</p>)}
+              </div>
+            )
+          }
+          {
+            isSuccessOperation && (
+              <div className="alert alert-success text-success p-2 mt-3">
+                عملیات با موفقیت انجام شد. به صفحه ورود منتقل می شوید
+              </div>
+            )
+          }
             </form>
           </div>
         </div>
@@ -121,10 +150,8 @@ const Register = () => {
 export async function registerAction({request}) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  await httpService.post('/Users', data);
-  return redirect('/login');
+  const response = await httpService.post('/Users', data);
+  return response.status === 200;
 }
 
 export default Register;
-
-// create an empty arrow function
