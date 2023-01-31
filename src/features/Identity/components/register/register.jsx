@@ -60,7 +60,7 @@ const Register = () => {
                 <label className="form-label">{t('register.mobile')}</label>
                 <input
                   {...register("mobile", {
-                    required: `${t('register.validation.mobileRequired')}`,
+                    required: true,
                     minLength: 11,
                     maxLength: 11
                   })}
@@ -70,7 +70,7 @@ const Register = () => {
                 />
                 {errors.mobile && errors.mobile.type === "required" && (
                   <p className="text-danger small fw-bolder mt-1">
-                    {errors.mobile?.message}
+                    {t('register.validation.mobileRequired')}
                   </p>
                 )}
                 {errors.mobile && (errors.mobile.type === "minLength" || errors.mobile.type === 'maxLength') && (
@@ -82,15 +82,15 @@ const Register = () => {
               <div className="mb-3">
                 <label className="form-label">{t('register.password')}</label>
                 <input
-                  {...register("password", { required:  `${t('register.validation.passwordRequired')}` })}
+                  {...register("password", { required:  true })}
                   className={`form-control form-control-lg ${
                     errors.password && "is-invalid"
                   }`}
                   type="password"
                 />
-                {errors.password && (
+                {errors.password && (errors.password.type === 'required') &&(
                   <p className="text-danger small fw-bolder mt-1">
-                    {errors.password?.message}
+                    {t('register.validation.passwordRequired')}
                   </p>
                 )}
               </div>
@@ -98,7 +98,7 @@ const Register = () => {
                 <label className="form-label">{t('register.repeatPassword')}</label>
                 <input
                   {...register("confirmPassword", {
-                    required:  `${t('register.validation.repeatPasswordRequired')}`,
+                    required: true,
                     validate: (value) => {
                       if (watch("password") !== value) {
                         return t('register.validation.notMatching');
@@ -113,7 +113,7 @@ const Register = () => {
                 {errors.confirmPassword &&
                   errors.confirmPassword.type === "required" && (
                     <p className="text-danger small fw-bolder mt-1">
-                      {errors.confirmPassword?.message}
+                      {t('register.validation.repeatPasswordRequired')}
                     </p>
                   )}
                 {errors.confirmPassword &&
