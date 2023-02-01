@@ -163,7 +163,7 @@
   stroke-linecap: round;
 }
 [data-theme="dark"].theme-toggle {
-  --icon-fill: var(--primary-light);
+  --icon-fill: #ecce6b;
   --icon-fill-hover: hsl(210 15% 90%);
 }
 @media (hover: none) {
