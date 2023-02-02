@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, redirect, useActionData, useNavigate, useNavigation, useRouteError, useSubmit } from "react-router-dom";
-import { httpService } from "../../../../core/http-service";
+import { httpService } from "@core/http-service";
 const Register = () => {
   const {
     register,
