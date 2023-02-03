@@ -13,7 +13,7 @@ const MainLayout = () => {
     <div className="wrapper" style={{ minHeight: "100vh" }}>
       <nav className={`sidebar ${collapseSidebar ? 'collapsed' : ''}`}>
         <div className="sidebar-content">
-          <a className="sidebar-brand text-end d-flex flex-column align-items-center pt-0 mb-0">
+          <a className="sidebar-brand d-flex flex-column align-items-center pt-0 mb-0">
             <img src={logo} style={{ height: "80px" }} />
             <p className="mb-0">پلتفرم آموزش آنلاین</p>
           </a>
@@ -187,7 +187,7 @@ const MainLayout = () => {
           <ChangeLanguage />
           <ChangeTheme />
           </div>
-          <img src={avatar} className="avatar img-fluid rounded-circle me-auto"/>
+          <img src={avatar} className={`avatar img-fluid rounded-circle ${language === 'fa' ? 'me-auto' : 'ms-auto'}`}/>
         </nav>
         <main className="content">
           <div className="container-fluid p-0">
@@ -197,7 +197,7 @@ const MainLayout = () => {
         <footer className="footer">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 text-end">
+              <div className="col-12">
                 <p className="mb-0">
                   © 2023 -{" "}
                   <a href="index.html" className="text-muted">
