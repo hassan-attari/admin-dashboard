@@ -1,10 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Sidebar from "./sidebar";
 import TopNav from "./top-nav";
 import { useState } from "react";
 
 const MainLayout = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return navigate('/login', {replace: true});
+  }
 
   const { t } = useTranslation();
   return (
