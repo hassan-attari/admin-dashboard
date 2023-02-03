@@ -25,6 +25,7 @@ const AppProvider = ({children}) => {
     useEffect(() => {
         i18n.changeLanguage(state.language);
         localStorage.setItem('language', state.language);
+        document.body.dataset.direction = state.language === 'fa' ? 'rtl' : 'ltr';
     }, [state.language])
 
     useEffect(() => {

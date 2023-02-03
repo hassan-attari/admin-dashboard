@@ -182,3 +182,11 @@
     transform: rotate(10deg);
   }
 }
+
+body[data-direction=rtl] * {
+  direction: rtl;
+}
+
+body[data-direction=ltr] * {
+  direction: ltr;
+}
