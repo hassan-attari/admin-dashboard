@@ -5,21 +5,23 @@ import ChangeLanguage from "../components/change-language";
 import avatar from '@assets/images/avatar.jpg';
 import { useAppContext } from "../contexts/app/app-context";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const MainLayout = () => {
   const {language} = useAppContext();
   const [collapseSidebar, setCollapseSidebar] = useState(false);
+  const {t} = useTranslation();
   return (
     <div className="wrapper" style={{ minHeight: "100vh" }}>
       <nav className={`sidebar ${collapseSidebar ? 'collapsed' : ''}`}>
         <div className="sidebar-content">
           <a className="sidebar-brand d-flex flex-column align-items-center pt-0 mb-0">
             <img src={logo} style={{ height: "80px" }} />
-            <p className="mb-0">پلتفرم آموزش آنلاین</p>
+            <p className="mb-0" style={{fontSize: '90%'}}>{t('mainLayout.sidebar.subtitle')}</p>
           </a>
 
           <ul className="sidebar-nav pe-0">
-            <li className="sidebar-header fw-bolder fs-lg">مدیریت دوره ها</li>
+            <li className="sidebar-header fw-bolder fs-lg">{t('mainLayout.sidebar.courseManagement')}</li>
             <li className="sidebar-item">
               <a className="sidebar-link">
                 <svg
@@ -38,7 +40,7 @@ const MainLayout = () => {
                   <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
                 </svg>
 
-                <span className="align-middle me-2">همه دوره ها</span>
+                <span className="align-middle me-2">{t('mainLayout.sidebar.allCourses')}</span>
               </a>
             </li>
             <li className="sidebar-item">
@@ -59,7 +61,7 @@ const MainLayout = () => {
                   <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
                 </svg>
 
-                <span className="align-middle me-2">دسته بندی دوره ها</span>
+                <span className="align-middle me-2">{t('mainLayout.sidebar.coursesCategory')}</span>
               </a>
             </li>
             <li className="sidebar-item">
@@ -81,10 +83,10 @@ const MainLayout = () => {
                   <circle cx="17.5" cy="17.5" r="2.5"></circle>
                 </svg>
 
-                <span className="align-middle me-2">تخفیف دوره ها</span>
+                <span className="align-middle me-2">{t('mainLayout.sidebar.courseDiscount')}</span>
               </a>
             </li>
-            <li className="sidebar-header fw-bolder fs-lg">مدیریت کاربران</li>
+            <li className="sidebar-header fw-bolder fs-lg">{t('mainLayout.sidebar.userManagement')}</li>
             <li className="sidebar-item">
               <a className="sidebar-link">
                 <svg
@@ -103,7 +105,7 @@ const MainLayout = () => {
                   <circle cx="12" cy="7" r="4"></circle>
                 </svg>
 
-                <span className="align-middle me-2">مدیریت مدرس ها</span>
+                <span className="align-middle me-2">{t('mainLayout.sidebar.teacherManagement')}</span>
               </a>
             </li>
             <li className="sidebar-item">
@@ -126,10 +128,10 @@ const MainLayout = () => {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                 </svg>
 
-                <span className="align-middle me-2">مدیریت دانشجوها</span>
+                <span className="align-middle me-2">{t('mainLayout.sidebar.studentManagement')}</span>
               </a>
             </li>
-            <li className="sidebar-header fw-bolder fs-lg">مدیریت بلاگ</li>
+            <li className="sidebar-header fw-bolder fs-lg">{t('mainLayout.sidebar.blogManagement')}</li>
             <li className="sidebar-item">
               <a className="sidebar-link">
                 <svg
@@ -148,7 +150,7 @@ const MainLayout = () => {
                   <line x1="7" y1="7" x2="7.01" y2="7"></line>
                 </svg>
 
-                <span className="align-middle me-2">مدیریت تگ ها</span>
+                <span className="align-middle me-2">{t('mainLayout.sidebar.tagManagement')}</span>
               </a>
             </li>
             <li className="sidebar-item">
@@ -172,7 +174,7 @@ const MainLayout = () => {
                   <polyline points="10 9 9 9 8 9"></polyline>
                 </svg>
 
-                <span className="align-middle me-2">مدیریت پست ها</span>
+                <span className="align-middle me-2">{t('mainLayout.sidebar.postManagement')}</span>
               </a>
             </li>
           </ul>
@@ -201,7 +203,7 @@ const MainLayout = () => {
                 <p className="mb-0">
                   © 2023 -{" "}
                   <a href="index.html" className="text-muted">
-                    کلاسبن
+                    {t('classbon')}
                   </a>
                 </p>
               </div>
