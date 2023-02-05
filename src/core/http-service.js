@@ -27,7 +27,7 @@ httpInterceptedService.interceptors.request.use(
 httpInterceptedService.interceptors.response.use(
   (response) => response,
   async (error) => {
-    debugger;
+    
     const config = error.config;
 
     if (error.response.status === 401 && !config._retry) {
