@@ -38,6 +38,7 @@ const CourseDetails = () => {
             <div className="card-body my-0 pt-0">
               <h4 className="text-info fw-bolder">
                 {data.duration + " ساعت"}
+                
               </h4>
             </div>
           </div>
