@@ -8,23 +8,22 @@ const CourseDetails = () => {
       <div className="row">
         <div className="col-12">
           <div className="card">
-            <div className="card-header"></div>
             <div className="card-body pt-0">
-              <div class="row g-0">
-                <div class="col-2 text-center">
-                  <img
-                    className="me-2 rounded"
-                    style={{ width: "100%" }}
-                    src={data.coverImageUrl}
-                  />
-                </div>
-                <div class="col-10 d-flex flex-column justify-content-center pe-4">
-                <div class="badge bg-info my-2 align-self-start">{data.courseCategory}</div>
+              <img
+                className="mx-auto my-4 d-block rounded"
+                style={{ width: "30%" }}
+                src={data.coverImageUrl}
+              />
+             
+                <div class="d-flex flex-column justify-content-center pe-4 text-center">
+                  <div class="badge bg-info my-2 align-self-center">
+                    {data.courseCategory}
+                  </div>
                   <h4>{data.title}</h4>
                   <p>{data.description}</p>
                 </div>
               </div>
-            </div>
+          
           </div>
         </div>
       </div>
@@ -36,10 +35,7 @@ const CourseDetails = () => {
               <h5 className="card-title mb-0 mt-2">زمان آموزش</h5>
             </div>
             <div className="card-body my-0 pt-0">
-              <h4 className="text-info fw-bolder">
-                {data.duration + " ساعت"}
-                
-              </h4>
+              <h4 className="text-info fw-bolder">{data.duration + " ساعت"}</h4>
             </div>
           </div>
         </div>
@@ -49,9 +45,7 @@ const CourseDetails = () => {
               <h5 className="card-title mb-0 mt-2">سطح دوره</h5>
             </div>
             <div className="card-body my-0 pt-0">
-              <h4 className="text-info fw-bolder">
-                {data.courseLevel}
-              </h4>
+              <h4 className="text-info fw-bolder">{data.courseLevel}</h4>
             </div>
           </div>
         </div>
@@ -62,7 +56,7 @@ const CourseDetails = () => {
             </div>
             <div className="card-body my-0 pt-0">
               <h4 className="text-info fw-bolder">
-                {data.numOfChapters + ' فصل'}
+                {data.numOfChapters + " فصل"}
               </h4>
             </div>
           </div>
@@ -74,7 +68,7 @@ const CourseDetails = () => {
             </div>
             <div className="card-body my-0 pt-0">
               <h4 className="text-info fw-bolder">
-                {data.numOfLectures + ' مبحث'}
+                {data.numOfLectures + " مبحث"}
               </h4>
             </div>
           </div>
@@ -86,7 +80,7 @@ const CourseDetails = () => {
             </div>
             <div className="card-body my-0 pt-0">
               <h4 className="text-info fw-bolder">
-                {data.numOfReviews + ' نظر'}
+                {data.numOfReviews + " نظر"}
               </h4>
             </div>
           </div>
@@ -98,7 +92,7 @@ const CourseDetails = () => {
             </div>
             <div className="card-body my-0 pt-0">
               <h4 className="text-info fw-bolder">
-                {data.averageReviewRating + ' از 5'}
+                {data.averageReviewRating + " از 5"}
               </h4>
             </div>
           </div>
