@@ -15,8 +15,8 @@ const CourseDetails = () => {
                 src={data.coverImageUrl}
               />
              
-                <div class="d-flex flex-column justify-content-center pe-4 text-center">
-                  <div class="badge bg-info my-2 align-self-center">
+                <div className="d-flex flex-column justify-content-center pe-4 text-center">
+                  <div className="badge bg-info my-2 align-self-center">
                     {data.courseCategory}
                   </div>
                   <h4>{data.title}</h4>
