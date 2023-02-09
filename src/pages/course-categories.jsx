@@ -26,14 +26,20 @@ const CourseCategories = () => {
   );
 };
 
-const loadCategories = async () => {
-  const response = await httpInterceptedService.get("/CourseCategory/sieve");
+const loadCategories = async (request) => {
+  const page = new URL(request.url).searchParams.get('page') || 1;
+  const pageSize = 10;
+  let url = '/CourseCategory/sieve';
+
+  url += `?page=${page}&pageSize=${pageSize}`;
+
+  const response = await httpInterceptedService.get(url);
   return response.data;
 };
 
-export async function categoriesLoader() {
+export async function categoriesLoader({request}) {
   return defer({
-    categories: loadCategories(),
+    categories: loadCategories(request),
   });
 }
 
