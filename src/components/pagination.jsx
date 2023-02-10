@@ -27,7 +27,7 @@ const Pagination = ({ totalRecords, pageSize = import.meta.env.VITE_PAGE_SIZE })
           </a>
         </li>
         {_.times(pages, (index) => (
-          <li onClick={() => setSearchParams({page: index + 1})} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
+          <li key={`page${index +1 }`} onClick={() => setSearchParams({page: index + 1})} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
             <a className="page-link">{index + 1}</a>
           </li>
         ))}
