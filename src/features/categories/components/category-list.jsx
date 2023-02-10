@@ -21,7 +21,7 @@ const CategoryList = memo(({ categories: { data, totalRecords }, setShowDeleteMo
               <tbody>
                 {data.map((category) => {
                   return (
-                    <tr>
+                    <tr key={category.id}>
                       <td>{category.name}</td>
                       <td className="table-action">
                         <a className="ms-3">
