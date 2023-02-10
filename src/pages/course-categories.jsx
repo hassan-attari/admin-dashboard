@@ -1,11 +1,14 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Await, defer, useLoaderData } from "react-router";
 import CategoryList from "../features/categories/components/category-list";
 import { httpInterceptedService } from "@core/http-service";
+import Modal from "../components/modal";
 
 const CourseCategories = () => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const data = useLoaderData();
   return (
+    <>
     <div className="row">
       <div className="col-12">
         <div className="d-flex align-items-center justify-content-between mb-5">
@@ -18,11 +21,31 @@ const CourseCategories = () => {
           fallback={<p className="text-info">در حال دریافت اطلاعات ...</p>}
         >
           <Await resolve={data.categories}>
-            {(loadedCategories) => <CategoryList categories={loadedCategories} />}
+            {(loadedCategories) => <CategoryList setShowDeleteModal={setShowDeleteModal} categories={loadedCategories} />}
           </Await>
         </Suspense>
       </div>
     </div>
+
+    <Modal
+        title="حذف"
+        body="آیا از حذف این دسته اطمینان دارید؟"
+        isOpen={showDeleteModal}
+        close={setShowDeleteModal}
+      >
+        <button
+          type="button"
+          className="btn btn-secondary fw-bolder"
+          onClick={() => setShowDeleteModal(false)}
+        >
+          انصراف
+        </button>
+        <button type="button" className="btn btn-primary fw-bolder">
+          حذف
+        </button>
+      </Modal>
+   </>
+    
   );
 };
 
