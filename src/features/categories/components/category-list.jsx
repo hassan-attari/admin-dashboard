@@ -3,7 +3,7 @@ import { useNavigation } from "react-router";
 import Pagination from "../../../components/pagination";
 import Spinner from "../../../components/spinner";
 
-const CategoryList = memo(({ categories: { data, totalRecords }, setShowDeleteModal }) => {
+const CategoryList = memo(({ categories: { data, totalRecords }, deleteCategory }) => {
   const navigation = useNavigation();
   return (
     <>
@@ -38,7 +38,7 @@ const CategoryList = memo(({ categories: { data, totalRecords }, setShowDeleteMo
                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                           </svg>
                         </a>
-                        <a onClick={() => setShowDeleteModal(true)}>
+                        <a onClick={() => deleteCategory(category.id)}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
