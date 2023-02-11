@@ -1,12 +1,31 @@
 import { Suspense, useState } from "react";
-import { Await, defer, useLoaderData } from "react-router";
+import { Await, defer, useLoaderData, useNavigate } from "react-router";
 import CategoryList from "../features/categories/components/category-list";
 import { httpInterceptedService } from "@core/http-service";
 import Modal from "../components/modal";
 
 const CourseCategories = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const data = useLoaderData();
+  const [selectedCategory, setSelectedCategory] = useState();
+  const data = useLoaderData();  
+  const navigate = useNavigate();
+
+  const deleteCategory = (categoryId) => {
+    setSelectedCategory(categoryId);
+    setShowDeleteModal(true);
+  }
+
+  const handleDeleteCategory = async () => {
+    setShowDeleteModal(false);
+    const response = await httpInterceptedService.delete(`/CourseCategory/${selectedCategory}`);
+
+    if (response.status === 200) {
+      const url = new URL(window.location.href);
+      navigate(url.pathname + url.search);
+    }
+
+  }
+
   return (
     <>
     <div className="row">
@@ -21,7 +40,7 @@ const CourseCategories = () => {
           fallback={<p className="text-info">در حال دریافت اطلاعات ...</p>}
         >
           <Await resolve={data.categories}>
-            {(loadedCategories) => <CategoryList setShowDeleteModal={setShowDeleteModal} categories={loadedCategories} />}
+            {(loadedCategories) => <CategoryList deleteCategory={deleteCategory} categories={loadedCategories} />}
           </Await>
         </Suspense>
       </div>
@@ -40,7 +59,7 @@ const CourseCategories = () => {
         >
           انصراف
         </button>
-        <button type="button" className="btn btn-primary fw-bolder">
+        <button type="button" className="btn btn-primary fw-bolder" onClick={handleDeleteCategory}>
           حذف
         </button>
       </Modal>
