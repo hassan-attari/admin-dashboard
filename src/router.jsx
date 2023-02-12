@@ -7,48 +7,50 @@ import { registerAction } from "./features/Identity/components/register/register
 import MainLayout from "./layouts/mainLayout/main-layout";
 import Courses, { coursesLoader } from "./pages/courses";
 import CourseCategories, { categoriesLoader } from "./pages/course-categories";
-import CourseDetails, { courseDetailsLoader } from "./features/courses/components/course-details";
+import CourseDetails, {
+  courseDetailsLoader,
+} from "./features/courses/components/course-details";
+import AddOrUpdateCategory from "./features/categories/components/add-or-update-category";
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <MainLayout/>,
-        children: [
-            {
-                index: true,
-                element: <Courses/>,
-                loader: coursesLoader
-            },
-            {
-                path: 'courses/:id',
-                element: <CourseDetails/>,
-                loader: courseDetailsLoader
-            },
-            {
-                path: 'course-categories',
-                element: <CourseCategories/>,
-                loader: categoriesLoader
-                
-            }
-        ]
-    },
-    {
-        element: <IdentityLayout/>,
-        children: [
-            {
-                path: 'login',
-                element: <Login/>,
-                action: loginAction,
-                errorElement: <Login/>
-            },
-            {
-                path: 'register',
-                element: <Register/>,
-                action: registerAction,
-                errorElement: <Register/>
-            },
-        ]
-    }
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <Courses />,
+        loader: coursesLoader,
+      },
+      {
+        path: "courses/:id",
+        element: <CourseDetails />,
+        loader: courseDetailsLoader,
+      },
+      {
+        path: "course-categories",
+        element: <CourseCategories />,
+        loader: categoriesLoader,
+      },
+    ],
+  },
+  {
+    element: <IdentityLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+        action: loginAction,
+        errorElement: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+        action: registerAction,
+        errorElement: <Register />,
+      },
+    ],
+  },
 ]);
 
 export default router;

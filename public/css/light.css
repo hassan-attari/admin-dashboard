@@ -225,3 +225,7 @@ body[data-direction=ltr] * {
 .modal {
  background-color: rgba(0, 0, 0, 0.4); 
 }
+
+.Toastify__toast {
+  font-family: iranyekan !important;
+}
