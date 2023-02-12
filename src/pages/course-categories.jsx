@@ -1,5 +1,5 @@
 import { Suspense, useState } from "react";
-import { Await, defer, Outlet, useLoaderData, useNavigate } from "react-router";
+import { Await, defer, useLoaderData, useNavigate } from "react-router";
 import CategoryList from "../features/categories/components/category-list";
 import { httpInterceptedService } from "@core/http-service";
 import Modal from "../components/modal";
