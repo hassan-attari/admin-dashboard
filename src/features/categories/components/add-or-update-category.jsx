@@ -1,8 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useNavigation } from "react-router";
+import { useNavigate, useNavigation } from "react-router";
 import { Link } from "react-router-dom";
+import { httpInterceptedService } from "@core/http-service";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
-const AddOrUpdateCategory = () => {
+const AddOrUpdateCategory = ({setShowAddCategory}) => {
+    const navigate = useNavigate();
+    const {t} = useTranslation();
   const {
     register,
     handleSubmit,
@@ -10,11 +15,37 @@ const AddOrUpdateCategory = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const response = httpInterceptedService.post(
+        `/CourseCategory/`, data
+      );
+      setShowAddCategory(false);
+      toast.promise(
+        response,
+        {
+          pending: "در حال ذخیره اطلاعات ...",
+          success: {
+            render() {
+              const url = new URL(window.location.href);
+              navigate(url.pathname + url.search);
+              return "عملیات با موفقیت انجام شد";
+            },
+          },
+          error: {
+            render({ data }) {
+                if (data.response.status === 400) {
+                    return t("categoryList." + data.response.data.code);
+                } else {
+                    return 'خطا در اجرای عملیات';
+                }
+            },
+          },
+        },
+        {
+          position: toast.POSITION.BOTTOM_LEFT,
+        }
+      );
   };
 
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state !== "idle";
   return (
     <div className="card">
       <div className="card-body">
@@ -34,19 +65,18 @@ const AddOrUpdateCategory = () => {
             )}
           </div>
           <div className="text-start mt-3">
-          <Link
+          <button
               type="button"
               className="btn btn-lg btn-secondary ms-2"
-              to="/course-categories"
+              onClick={() => setShowAddCategory(false)}
             >
              بستن
-            </Link>
+            </button>
             <button
               type="submit"
-              disabled={isSubmitting}
               className="btn btn-lg btn-primary"
             >
-              {isSubmitting ? "در حال ذخیره اطلاعات ..." : "ثبت تغییرات"}
+             ثبت تغییرات
             </button>
           </div>
         </form>

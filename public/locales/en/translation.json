@@ -52,8 +52,7 @@
     }
   },
   "categoryList": {
-    "validation": {
-      "DeleteIsNotPossible": "It is not possible to delete this category"
-    }
+      "DeleteIsNotPossible": "It is not possible to delete this category",
+      "DuplicateCategory": "The category is duplicate"
   }
 }
