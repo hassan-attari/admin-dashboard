@@ -3,12 +3,15 @@ import { Await, defer, useLoaderData, useNavigate } from "react-router";
 import CategoryList from "../features/categories/components/category-list";
 import { httpInterceptedService } from "@core/http-service";
 import Modal from "../components/modal";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const CourseCategories = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState();
   const data = useLoaderData();  
   const navigate = useNavigate();
+  const {t} = useTranslation();
 
   const deleteCategory = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -17,12 +20,34 @@ const CourseCategories = () => {
 
   const handleDeleteCategory = async () => {
     setShowDeleteModal(false);
-    const response = await httpInterceptedService.delete(`/CourseCategory/${selectedCategory}`);
+    const response = httpInterceptedService.delete(`/CourseCategory/${selectedCategory}`);
+    toast.promise(
+      response,
+      {
+        pending: 'در حال حذف ...',
+        success: {
+          render() {
+            const url = new URL(window.location.href);
+            navigate(url.pathname + url.search);
+            return 'عملیات با موفقیت انجام شد'
+          }
+        },
+        error: {
+          render({data}) {
+            return t('categoryList.validation.' + data.response.data.code);
+          }
+        }
+      }, {
+        position: toast.POSITION.BOTTOM_LEFT
+      }
+  )
 
-    if (response.status === 200) {
-      const url = new URL(window.location.href);
-      navigate(url.pathname + url.search);
-    }
+    // if (response.status === 200) {
+    
+    //   toast.success("آیتم با موفقیت حذف شد", {
+    //     position: toast.POSITION.BOTTOM_LEFT
+    //   });
+    // }
 
   }
 
@@ -63,6 +88,7 @@ const CourseCategories = () => {
           حذف
         </button>
       </Modal>
+      
    </>
     
   );
