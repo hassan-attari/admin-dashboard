@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useAppContext } from "../contexts/app/app-context";
 
 const ChangeTheme = () => {
-    debugger;
   const {theme, changeTheme} = useAppContext();
 
   const changeThemeHandler = () => {
