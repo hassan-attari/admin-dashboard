@@ -23,22 +23,12 @@ httpInterceptedService.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// response interceptor intercepting 401 responses, refreshing token and retrying the request
 httpInterceptedService.interceptors.response.use(
   (response) => response,
   async (error) => {
-    
-    const config = error.config;
-
-    if (error.response.status === 401 && !config._retry) {
-      // we use this flag to avoid retrying indefinitely if
-      // getting a refresh token fails for any reason
-      config._retry = true;
-      localStorage.setItem("token", await refreshAccessToken());
-
-      return axios(config);
+    if (error.response.status === 401) {
+      window.location.href = '/login';
     }
-
     return Promise.reject(error);
   }
 );
