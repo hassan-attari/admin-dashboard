@@ -4,46 +4,64 @@ import { Link } from "react-router-dom";
 import { httpInterceptedService } from "@core/http-service";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { useCategoryContext } from "../category-context";
+import { useEffect } from "react";
 
-const AddOrUpdateCategory = ({setShowAddCategory}) => {
-    const navigate = useNavigate();
-    const {t} = useTranslation();
+const AddOrUpdateCategory = ({ setShowAddCategory }) => {
+  const navigate = useNavigate();
+  const {category, setCategory} = useCategoryContext();
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    if (category) {
+        setValue('name', category.name);
+        setValue('id', category.id);
+    }
+  }, [category]);
+
+
+  const onClose = () => {
+    setCategory(null);
+    setShowAddCategory(false);
+  }
+
   const onSubmit = (data) => {
-    const response = httpInterceptedService.post(
-        `/CourseCategory/`, data
-      );
-      setShowAddCategory(false);
-      toast.promise(
-        response,
-        {
-          pending: "در حال ذخیره اطلاعات ...",
-          success: {
-            render() {
-              const url = new URL(window.location.href);
-              navigate(url.pathname + url.search);
-              return "عملیات با موفقیت انجام شد";
-            },
-          },
-          error: {
-            render({ data }) {
-                if (data.response.status === 400) {
-                    return t("categoryList." + data.response.data.code);
-                } else {
-                    return 'خطا در اجرای عملیات';
-                }
-            },
+    const response = httpInterceptedService.post(`/CourseCategory/`, data);
+    setShowAddCategory(false);
+    toast.promise(
+      response,
+      {
+        pending: "در حال ذخیره اطلاعات ...",
+        success: {
+          render() {
+            const url = new URL(window.location.href);
+            navigate(url.pathname + url.search);
+            if (category) {
+                setCategory(null);
+            }
+            return "عملیات با موفقیت انجام شد";
           },
         },
-        {
-          position: toast.POSITION.BOTTOM_LEFT,
-        }
-      );
+        error: {
+          render({ data }) {
+            if (data.response.status === 400) {
+              return t("categoryList." + data.response.data.code);
+            } else {
+              return "خطا در اجرای عملیات";
+            }
+          },
+        },
+      },
+      {
+        position: toast.POSITION.BOTTOM_LEFT,
+      }
+    );
   };
 
   return (
@@ -65,18 +83,15 @@ const AddOrUpdateCategory = ({setShowAddCategory}) => {
             )}
           </div>
           <div className="text-start mt-3">
-          <button
+            <button
               type="button"
               className="btn btn-lg btn-secondary ms-2"
-              onClick={() => setShowAddCategory(false)}
+              onClick={onClose}
             >
-             بستن
+              بستن
             </button>
-            <button
-              type="submit"
-              className="btn btn-lg btn-primary"
-            >
-             ثبت تغییرات
+            <button type="submit" className="btn btn-lg btn-primary">
+              ثبت تغییرات
             </button>
           </div>
         </form>

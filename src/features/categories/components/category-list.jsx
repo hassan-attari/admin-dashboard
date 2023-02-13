@@ -2,9 +2,11 @@ import { memo } from "react";
 import { useNavigation } from "react-router";
 import Pagination from "../../../components/pagination";
 import Spinner from "../../../components/spinner";
+import { useCategoryContext } from "../category-context";
 
 const CategoryList = memo(({ categories: { data, totalRecords }, deleteCategory }) => {
   const navigation = useNavigation();
+  const {setCategory} = useCategoryContext();
   return (
     <>
       <div className="row">
@@ -24,7 +26,7 @@ const CategoryList = memo(({ categories: { data, totalRecords }, deleteCategory 
                     <tr key={category.id}>
                       <td>{category.name}</td>
                       <td className="table-action">
-                        <a className="ms-3">
+                        <a className="ms-3" onClick={() => setCategory(category)}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"

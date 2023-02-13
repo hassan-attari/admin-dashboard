@@ -11,6 +11,7 @@ import CourseDetails, {
   courseDetailsLoader,
 } from "./features/courses/components/course-details";
 import AddOrUpdateCategory from "./features/categories/components/add-or-update-category";
+import { CategoryProvider } from "./features/categories/category-context";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: "course-categories",
-        element: <CourseCategories />,
+        element: (
+          <CategoryProvider>
+            <CourseCategories />
+          </CategoryProvider>
+        ),
         loader: categoriesLoader,
       },
     ],
